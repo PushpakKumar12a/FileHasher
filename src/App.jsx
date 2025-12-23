@@ -99,7 +99,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-8 font-sans">
+    <div className="min-h-screen bg-gray-900 text-gray-100 p-5 font-sans">
       <div className="max-w-4xl mx-auto">
         <Navbar />
         <div 
