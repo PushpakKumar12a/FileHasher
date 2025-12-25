@@ -1,7 +1,40 @@
 import { FileText, ChevronDown } from 'lucide-react'
 import DownloadButtons from './DownloadButtons'
 
-const FileCard = ({ item, isExpanded, onToggle }) => {
+const FileCard = ({ item, isExpanded, onToggle, integrity }) => {
+  const integrityBadge = (() => {
+    if (!integrity) return null
+    if (integrity.state === 'verified') {
+      return (
+        <span className="text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wide bg-green-900/30 text-green-400 border border-green-900">
+          verified
+        </span>
+      )
+    }
+    if (integrity.state === 'tampered') {
+      return (
+        <span className="text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wide bg-red-900/30 text-red-400 border border-red-900">
+          tampered
+        </span>
+      )
+    }
+    if (integrity.state === 'new') {
+      return (
+        <span className="text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wide bg-yellow-900/30 text-yellow-400 border border-yellow-900">
+          new
+        </span>
+      )
+    }
+    if (integrity.state === 'unknown') {
+      return (
+        <span className="text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wide bg-gray-900/30 text-gray-300 border border-gray-700">
+          unknown
+        </span>
+      )
+    }
+    return null
+  })()
+
   return (
     <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       <div 
@@ -22,6 +55,7 @@ const FileCard = ({ item, isExpanded, onToggle }) => {
                     'bg-blue-900/30 text-blue-400 border border-blue-900'}`}>
                   {item.status}
                 </span>
+                {integrityBadge}
               </div>
               <div className="flex items-center gap-4 text-sm text-gray-500">
                 <span>{(item.file.size / (1024 * 1024)).toFixed(2)} MB</span>
@@ -74,6 +108,22 @@ const FileCard = ({ item, isExpanded, onToggle }) => {
             </div>
           ) : item.result ? (
             <div className="space-y-4">
+              {integrity && (
+                <div className={`p-3 rounded-lg border text-sm 
+                  ${integrity.state === 'verified' ? 'bg-green-900/10 border-green-900/20 text-green-300' :
+                    integrity.state === 'tampered' ? 'bg-red-900/10 border-red-900/20 text-red-300' :
+                    integrity.state === 'new' ? 'bg-yellow-900/10 border-yellow-900/20 text-yellow-300' :
+                    'bg-gray-900/10 border-gray-700/30 text-gray-300'}`}>
+                  <span className="font-semibold">Comparison:</span>{' '}
+                  {integrity.state === 'verified'
+                    ? 'Matches previous report.'
+                    : integrity.state === 'tampered'
+                      ? 'Does NOT match previous report (possible tampering).'
+                      : integrity.state === 'new'
+                        ? 'Not found in previous report.'
+                        : 'Could not compare (no matching hashes parsed from the report).'}
+                </div>
+              )}
               <div className="grid gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">MD5</label>
