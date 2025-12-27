@@ -25,13 +25,6 @@ const FileCard = ({ item, isExpanded, onToggle, integrity }) => {
         </span>
       )
     }
-    if (integrity.state === 'unknown') {
-      return (
-        <span className="text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wide bg-gray-900/30 text-gray-300 border border-gray-700">
-          unknown
-        </span>
-      )
-    }
     return null
   })()
 
