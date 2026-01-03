@@ -68,7 +68,7 @@ function App() {
 
   const uploadFile = async (fileItem) => {
     setFilesList(prev => prev.map(item => 
-      item.id === fileItem.id ? { ...item, status: 'uploading' } : item
+      item.id === fileItem.id ? { ...item, status: 'processing' } : item
     ))
 
     try {

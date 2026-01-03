@@ -63,7 +63,7 @@ const FileCard = ({ item, isExpanded, onToggle, integrity }) => {
           </div>
 
           <div className="flex items-center gap-4 pl-4">
-            {item.status === 'uploading' && (
+            {item.status === 'processing' && (
               <div className="hidden sm:flex items-center gap-3">
                 <div className="w-32 h-3 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
                   <div 
@@ -79,7 +79,7 @@ const FileCard = ({ item, isExpanded, onToggle, integrity }) => {
         </div>
 
         {/* Mobile Loading Bar */}
-        {item.status === 'uploading' && (
+        {item.status === 'processing' && (
           <div className="mt-3 sm:hidden flex items-center gap-3">
             <div className="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
               <div 
